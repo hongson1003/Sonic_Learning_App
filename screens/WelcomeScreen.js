@@ -1,3 +1,4 @@
+import * as Google from "expo-auth-session/providers/google";
 import React, { useState } from "react";
 import {
   Dimensions,
@@ -26,6 +27,17 @@ const data = [
 const WelcomeScreen = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { width, height } = Dimensions.get("window");
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId:
+      "535147303781-t9ma4r7cp02799ge0k62ju5i05j4qp07.apps.googleusercontent.com",
+    iosClientId: "",
+    webClientId: "",
+  });
+
+  const handleOnCLickLogin = () => {
+    promptAsync();
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -58,7 +70,7 @@ const WelcomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.loginButton}
-          onPress={() => navigation.navigate("Login")}
+          onPress={handleOnCLickLogin}
         >
           <Text style={styles.buttonText}>Đăng nhập</Text>
         </TouchableOpacity>
