@@ -1,14 +1,15 @@
 // components/GoogleLoginButton.js
 
-import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import * as Google from "expo-auth-session/providers/google";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { APP_ENVS } from "../../constants";
 
 const GoogleLoginButton = ({ onLoginSuccess }) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     responseType: "id_token",
-    androidClientId: "YOUR_ANDROID_CLIENT_ID",
-    webClientId: "YOUR_WEB_CLIENT_ID",
+    androidClientId: APP_ENVS.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+    webClientId: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
     scopes: ["email"],
   });
 

@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { APP_KEYS, APP_ROUTES } from "../constants";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,11 +35,11 @@ const HomeScreen = ({ navigation }) => {
   const handleLoginLogout = async () => {
     if (isLoggedIn) {
       // Đăng xuất, xóa token và cập nhật lại trạng thái
-      await AsyncStorage.removeItem("accessToken");
+      await AsyncStorage.removeItem(APP_KEYS.ACCESS_TOKEN);
       setIsLoggedIn(false);
     } else {
       // Điều hướng đến màn hình đăng nhập
-      navigation.replace("Login");
+      navigation.replace(APP_ROUTES.WELCOME);
     }
   };
 

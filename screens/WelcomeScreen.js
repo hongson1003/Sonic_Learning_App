@@ -1,13 +1,14 @@
 // screens/WelcomeScreen.js
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
   ButtonComponent,
   CarouselComponent,
   GoogleLoginButton,
 } from "../components/wellCome";
+import { APP_ENVS, APP_ROUTES } from "../constants";
 import { authService } from "../services";
 
 const data = [
@@ -22,22 +23,31 @@ const data = [
     description: "Tìm hiểu và trau dồi kiến thức từ những người giỏi nhất.",
     image: require("../assets/wellCome/wc2.png"),
   },
+  {
+    title: "Tiếp cận công nghệ mới",
+    description:
+      "Khám phá các xu hướng và công nghệ tiên tiến để bắt kịp thời đại.",
+    image: require("../assets/wellCome/wc3.png"),
+  },
+  {
+    title: "Mở rộng kỹ năng của bạn",
+    description:
+      "Học các kỹ năng mới và nâng cao bản thân với các bài giảng chất lượng.",
+    image: require("../assets/wellCome/wc4.png"),
+  },
 ];
 
 const WelcomeScreen = ({ navigation }) => {
-  const [token, setToken] = useState(null);
-
   const handleLoginSuccess = async (response) => {
     if (response?.type === "success") {
       const idToken = response?.params?.id_token;
       const res = await authService.login({
         idToken,
-        audience: "YOUR_WEB_CLIENT_ID",
+        audience: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
       });
 
       const { accessToken, refreshToken } = res.data;
       await saveTokensToStorage(accessToken, refreshToken);
-      setToken(accessToken);
     }
   };
 
@@ -51,11 +61,7 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   const handleBrowse = () => {
-    navigation.replace("Home");
-  };
-
-  const handleLogin = () => {
-    navigation.replace("Login");
+    navigation.replace(APP_ROUTES.HOME);
   };
 
   return (

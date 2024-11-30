@@ -1,7 +1,7 @@
 import { appEnvs } from "../constants";
 
 const authService = {
-  async login(data, locale = "en") {
+  async login(data) {
     try {
       const response = await fetch(
         `${appEnvs.EXPO_PUBLIC_API_URL}/auth/login`,
@@ -9,7 +9,6 @@ const authService = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept-Language": locale,
           },
           body: JSON.stringify(data),
         }
@@ -23,7 +22,7 @@ const authService = {
     }
   },
 
-  async refreshToken(refreshToken, locale = "en") {
+  async refreshToken(refreshToken) {
     try {
       const response = await fetch(
         `${appEnvs.EXPO_PUBLIC_API_URL}/auth/refresh/${refreshToken}`,
@@ -31,7 +30,6 @@ const authService = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept-Language": locale,
           },
         }
       );
