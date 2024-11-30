@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
 import { SettingsScreen } from "../screens";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -23,39 +22,18 @@ const BottomTabs = ({ navigation }) => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#2196F3",
+        tabBarInactiveTintColor: "#757575",
+        tabBarStyle: {
+          backgroundColor: "#FFFFFF",
+        },
       })}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerRight: () => (
-            <TouchableOpacity
-              style={styles.loginButton}
-              onPress={() => navigation.navigate("Login")}
-            >
-              <Ionicons name="log-in" size={24} color="white" />
-            </TouchableOpacity>
-          ),
-        }}
-      />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  loginButton: {
-    marginRight: 15,
-    padding: 10,
-    backgroundColor: "tomato",
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default BottomTabs;

@@ -1,17 +1,14 @@
-import * as WebBrowser from "expo-web-browser";
-import React, { useEffect, useState } from "react";
+// screens/WelcomeScreen.js
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import Carousel from "react-native-snap-carousel";
-
-WebBrowser.maybeCompleteAuthSession();
+  ButtonComponent,
+  CarouselComponent,
+  GoogleLoginButton,
+} from "../components/wellCome";
+import { authService } from "../services";
 
 const data = [
   {
@@ -28,72 +25,58 @@ const data = [
 ];
 
 const WelcomeScreen = ({ navigation }) => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const { width, height } = Dimensions.get("window");
-  // const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
 
-  // const [request, response, promptAsync] = Google.useAuthRequest({
-  //   responseType: "id_token",
-  //   androidClientId: appEnvs.EXPO_PUBLIC_ANDROID_CLIENT_ID,
-  //   webClientId: appEnvs.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
-  //   scopes: ["email"],
-  // });
-
-  const handleToken = () => {
+  const handleLoginSuccess = async (response) => {
     if (response?.type === "success") {
       const idToken = response?.params?.id_token;
-      console.log("🚀 ~ handleToken ~ idToken:", idToken);
+      const res = await authService.login({
+        idToken,
+        audience: "YOUR_WEB_CLIENT_ID",
+      });
+
+      const { accessToken, refreshToken } = res.data;
+      await saveTokensToStorage(accessToken, refreshToken);
+      setToken(accessToken);
     }
   };
 
-  useEffect(() => {
-    handleToken();
-  }, [response]);
-
-  const handleOnCLickLogin = () => {
-    promptAsync({
-      // Thêm tùy chọn để người dùng chọn tài khoản
-      prompt: "select_account",
-    });
+  const saveTokensToStorage = async (accessToken, refreshToken) => {
+    try {
+      await AsyncStorage.setItem("accessToken", accessToken);
+      await AsyncStorage.setItem("refreshToken", refreshToken);
+    } catch (error) {
+      console.error("Error saving tokens", error);
+    }
   };
 
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.slide}>
-        <Image source={item.image} style={styles.image} />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        {token && <Text>{token}</Text>}
-      </View>
-    );
+  const handleBrowse = () => {
+    navigation.replace("Home");
+  };
+
+  const handleLogin = () => {
+    navigation.replace("Login");
   };
 
   return (
     <View style={styles.container}>
-      <Carousel
-        data={data}
-        renderItem={renderItem}
-        sliderWidth={width}
-        itemWidth={width * 0.8}
-        onSnapToItem={(index) => setActiveSlide(index)}
-        loop
-        autoplay
-        autoplayInterval={5000} // Tự động chuyển slide mỗi 5 giây
-      />
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.browseButton}
-          onPress={() => navigation.replace("Home")}
-        >
-          <Text style={styles.buttonText}>Duyệt tìm</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={handleOnCLickLogin}
-        >
-          <Text style={styles.buttonText}>Đăng nhập</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <CarouselComponent
+          data={data}
+          onSnapToItem={(index) => console.log(`Active slide: ${index}`)}
+        />
+        <View style={styles.buttons}>
+          <ButtonComponent
+            title="Khám phá"
+            onPress={handleBrowse}
+            style={[styles.fullWidthButton, styles.browseButton]}
+          />
+          <GoogleLoginButton
+            onLoginSuccess={handleLoginSuccess}
+            style={[styles.fullWidthButton, styles.loginButton]}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -103,70 +86,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5", // Sử dụng màu sáng, dễ chịu cho nền
+    backgroundColor: "#f5f5f5",
   },
-  slide: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  image: {
-    width: "100%", // Đảm bảo hình ảnh chiếm toàn bộ không gian
-    height: 280, // Tăng chiều cao để hình ảnh nổi bật hơn
-    borderRadius: 20, // Thêm bo góc mềm mại cho hình ảnh
-    marginBottom: 20,
-    resizeMode: "cover", // Đảm bảo hình ảnh được cắt sao cho đẹp
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#333", // Màu chữ tối để dễ đọc
-    marginBottom: 15, // Tăng khoảng cách giữa tiêu đề và mô tả
-    fontFamily: "Roboto", // Chọn font đẹp và dễ đọc
-  },
-  description: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "#666", // Màu chữ nhẹ nhàng cho mô tả
-    paddingHorizontal: 30, // Cách đều từ trái và phải
-    marginBottom: 30, // Tăng khoảng cách dưới mô tả
-    fontFamily: "Roboto", // Dùng font dễ đọc
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    paddingBottom: 80,
   },
   buttons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    position: "absolute",
-    bottom: 40, // Thêm khoảng cách từ đáy màn hình
-    width: "85%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 20,
+    paddingHorizontal: 20,
+  },
+  fullWidthButton: {
+    width: "100%",
+    marginBottom: 15,
+    paddingVertical: 12,
   },
   browseButton: {
-    backgroundColor: "#ff6f61", // Màu đỏ cam nổi bật
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 30,
-    flex: 1,
-    marginRight: 15, // Khoảng cách giữa các nút
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 4, // Thêm hiệu ứng đổ bóng nhẹ cho nút
+    color: "#fff",
   },
   loginButton: {
-    backgroundColor: "#333", // Màu nút tối
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 30,
-    flex: 1,
-    marginLeft: 15, // Khoảng cách giữa các nút
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 4, // Thêm hiệu ứng đổ bóng nhẹ cho nút
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 18, // Thay đổi kích thước chữ để nổi bật hơn
+    backgroundColor: "#333",
+    color: "#fff",
   },
 });
 
