@@ -1,14 +1,17 @@
 // components/GoogleLoginButton.js
 
 import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { APP_ENVS } from "../../constants";
 
+WebBrowser.maybeCompleteAuthSession();
+
 const GoogleLoginButton = ({ onLoginSuccess }) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     responseType: "id_token",
-    androidClientId: APP_ENVS.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+    // androidClientId: APP_ENVS.EXPO_PUBLIC_ANDROID_CLIENT_ID,
     webClientId: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
     scopes: ["email"],
   });
@@ -20,7 +23,13 @@ const GoogleLoginButton = ({ onLoginSuccess }) => {
   }, [response]);
 
   const handleLogin = () => {
-    promptAsync({ prompt: "select_account" });
+    try {
+      promptAsync({
+        prompt: "select_account",
+      });
+    } catch (error) {
+      alert("Đã có lỗi xảy ra, vui lòng thử lại sau");
+    }
   };
 
   return (

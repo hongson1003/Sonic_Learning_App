@@ -1,5 +1,11 @@
+import { Provider } from "react-redux";
+import store from "./context/store";
 import AppNavigator from "./navigation/AppNavigator";
 
 export default function App() {
-  return <AppNavigator />;
+  return (
+    <Provider store={store}>
+      <AppNavigator />;
+    </Provider>
+  );
 }

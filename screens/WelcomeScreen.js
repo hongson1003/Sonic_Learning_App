@@ -1,14 +1,15 @@
-// screens/WelcomeScreen.js
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { LoadingScreen } from "../components/loading";
 import {
   ButtonComponent,
   CarouselComponent,
   GoogleLoginButton,
 } from "../components/wellCome";
-import { APP_ENVS, APP_ROUTES } from "../constants";
+import { APP_ENVS, APP_KEYS, APP_ROUTES } from "../constants";
+import { setUser } from "../context/slices";
 import { authService } from "../services";
 
 const data = [
@@ -38,23 +39,36 @@ const data = [
 ];
 
 const WelcomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   const handleLoginSuccess = async (response) => {
+    setLoading(true);
     if (response?.type === "success") {
       const idToken = response?.params?.id_token;
-      const res = await authService.login({
-        idToken,
-        audience: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
-      });
+      try {
+        const res = await authService.login({
+          idToken,
+          audience: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+        });
 
-      const { accessToken, refreshToken } = res.data;
-      await saveTokensToStorage(accessToken, refreshToken);
+        const { accessToken, refreshToken, user } = res;
+        await saveTokensToStorage(accessToken, refreshToken);
+        dispatch(setUser(user));
+
+        navigation.replace(APP_ROUTES.HOME);
+      } catch (error) {
+        console.log("🚀 ~ handleLoginSuccess ~ error:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const saveTokensToStorage = async (accessToken, refreshToken) => {
     try {
-      await AsyncStorage.setItem("accessToken", accessToken);
-      await AsyncStorage.setItem("refreshToken", refreshToken);
+      await AsyncStorage.setItem(APP_KEYS.ACCESS_TOKEN, accessToken);
+      await AsyncStorage.setItem(APP_KEYS.REFRESH_TOKEN, refreshToken);
     } catch (error) {
       console.error("Error saving tokens", error);
     }
@@ -64,9 +78,16 @@ const WelcomeScreen = ({ navigation }) => {
     navigation.replace(APP_ROUTES.HOME);
   };
 
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <CarouselComponent
           data={data}
           onSnapToItem={(index) => console.log(`Active slide: ${index}`)}
@@ -89,22 +110,19 @@ const WelcomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 1, // Đảm bảo chiều cao màn hình đầy đủ
     backgroundColor: "#f5f5f5",
   },
   scrollContainer: {
-    flexGrow: 1,
+    flexGrow: 1, // Cho phép nội dung chiếm hết không gian còn lại
     justifyContent: "space-between",
-    paddingBottom: 80,
+    paddingBottom: 20, // Thêm khoảng cách dưới cùng
   },
   buttons: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
     paddingHorizontal: 20,
   },
   fullWidthButton: {

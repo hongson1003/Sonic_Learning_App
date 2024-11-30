@@ -1,10 +1,10 @@
-import { appEnvs } from "../constants";
+import { APP_ENVS } from "../constants";
 
 const authService = {
   async login(data) {
     try {
       const response = await fetch(
-        `${appEnvs.EXPO_PUBLIC_API_URL}/auth/login`,
+        `${APP_ENVS.EXPO_PUBLIC_API_URL}/auth/login`,
         {
           method: "POST",
           headers: {
