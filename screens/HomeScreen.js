@@ -1,14 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome"; // Import Icon từ react-native-vector-icons
 import { APP_KEYS, APP_ROUTES } from "../constants";
+import { BannersContainer } from "../containers/home/banners";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const token = await AsyncStorage.getItem("accessToken");
+      const token = await AsyncStorage.getItem(APP_KEYS.ACCESS_TOKEN);
       setIsLoggedIn(!!token);
     };
 
@@ -16,36 +18,46 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    // Cập nhật headerRight khi isLoggedIn thay đổi
     navigation.setOptions({
+      headerTitle: "",
+      headerLeft: () => (
+        <View style={styles.headerLeft}>
+          {/* Logo */}
+          <Image
+            source={require("../assets/sonic-learning-logo.png")} // Chỉ định đường dẫn logo
+            style={styles.logo}
+          />
+          {/* Tên "Sonic Learning" */}
+          <Text style={styles.headerLeftText}>Sonic Learning</Text>
+        </View>
+      ),
       headerRight: () => (
         <TouchableOpacity
           style={styles.headerRightButton}
-          onPress={handleLoginLogout}
+          onPress={handleClickRightHeader}
         >
           <Text style={styles.headerRightText}>
-            {isLoggedIn ? "Sign Out" : "Sign In"}{" "}
-            {/* Hiển thị Sign In/Sign Out */}
+            {isLoggedIn ? (
+              <Icon name="shopping-cart" size={25} color="#2196F3" />
+            ) : (
+              "Đăng nhập"
+            )}
           </Text>
         </TouchableOpacity>
       ),
     });
-  }, [isLoggedIn, navigation]); // Lắng nghe thay đổi của isLoggedIn và navigation
+  }, [isLoggedIn, navigation]);
 
-  const handleLoginLogout = async () => {
+  const handleClickRightHeader = async () => {
     if (isLoggedIn) {
-      // Đăng xuất, xóa token và cập nhật lại trạng thái
-      await AsyncStorage.removeItem(APP_KEYS.ACCESS_TOKEN);
-      setIsLoggedIn(false);
     } else {
-      // Điều hướng đến màn hình đăng nhập
       navigation.replace(APP_ROUTES.WELCOME);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home Screen</Text>
+      <BannersContainer />
     </View>
   );
 };
@@ -53,12 +65,24 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  headerLeft: {
+    flexDirection: "row", // Sắp xếp logo và tên theo chiều ngang
+    alignItems: "center", // Căn giữa logo và tên
+  },
+  logo: {
+    width: 30, // Kích thước logo
+    height: 30, // Kích thước logo
+    marginRight: 10, // Khoảng cách giữa logo và tên
+  },
+  headerLeftText: {
+    fontSize: 18, // Kích thước chữ
+    fontWeight: "bold", // Chữ đậm
+    color: "#2196F3", // Màu chữ
   },
   headerRightButton: {
     marginRight: 15,
