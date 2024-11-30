@@ -1,8 +1,6 @@
-import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
 
-import { appEnvs } from "../constants";
 import {
   Dimensions,
   Image,
@@ -32,14 +30,14 @@ const data = [
 const WelcomeScreen = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { width, height } = Dimensions.get("window");
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    responseType: "id_token",
-    androidClientId: appEnvs.EXPO_PUBLIC_ANDROID_CLIENT_ID,
-    webClientId: appEnvs.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
-    scopes: ["email"],
-  });
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   responseType: "id_token",
+  //   androidClientId: appEnvs.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+  //   webClientId: appEnvs.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+  //   scopes: ["email"],
+  // });
 
   const handleToken = () => {
     if (response?.type === "success") {
