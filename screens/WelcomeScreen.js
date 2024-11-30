@@ -1,5 +1,8 @@
 import * as Google from "expo-auth-session/providers/google";
-import React, { useState } from "react";
+import * as WebBrowser from "expo-web-browser";
+import React, { useEffect, useState } from "react";
+
+import { appEnvs } from "../constants";
 import {
   Dimensions,
   Image,
@@ -9,6 +12,8 @@ import {
   View,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const data = [
   {
@@ -27,16 +32,31 @@ const data = [
 const WelcomeScreen = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { width, height } = Dimensions.get("window");
+  const [token, setToken] = useState(null);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId:
-      "535147303781-t9ma4r7cp02799ge0k62ju5i05j4qp07.apps.googleusercontent.com",
-    iosClientId: "",
-    webClientId: "",
+    responseType: "id_token",
+    androidClientId: appEnvs.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+    webClientId: appEnvs.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+    scopes: ["email"],
   });
 
+  const handleToken = () => {
+    if (response?.type === "success") {
+      const idToken = response?.params?.id_token;
+      console.log("🚀 ~ handleToken ~ idToken:", idToken);
+    }
+  };
+
+  useEffect(() => {
+    handleToken();
+  }, [response]);
+
   const handleOnCLickLogin = () => {
-    promptAsync();
+    promptAsync({
+      // Thêm tùy chọn để người dùng chọn tài khoản
+      prompt: "select_account",
+    });
   };
 
   const renderItem = ({ item }) => {
@@ -45,6 +65,7 @@ const WelcomeScreen = ({ navigation }) => {
         <Image source={item.image} style={styles.image} />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
+        {token && <Text>{token}</Text>}
       </View>
     );
   };
