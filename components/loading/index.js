@@ -1,1 +1,1 @@
-export { default as LoadingScreen } from "./loadingScreen";
+export { default as LoadingScreen } from "./LoadingScreen";

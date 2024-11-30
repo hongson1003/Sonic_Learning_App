@@ -1,9 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // Import Icon từ react-native-vector-icons
 import { APP_KEYS, APP_ROUTES } from "../constants";
 import { BannersContainer } from "../containers/home/banners";
+import { CategoryTabList } from "../containers/home/categoryTabList";
+import { Hello } from "../containers/home/hello";
+import { NotificationHeader } from "../containers/home/notificationHeader";
+import { ServiceContainer } from "../containers/home/services";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,33 +67,35 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <NotificationHeader />
+      <Hello />
       <BannersContainer />
-    </View>
+      <CategoryTabList />
+      <ServiceContainer />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
+    backgroundColor: "#fff",
+    paddingBottom: 10,
   },
   headerLeft: {
-    flexDirection: "row", // Sắp xếp logo và tên theo chiều ngang
-    alignItems: "center", // Căn giữa logo và tên
+    flexDirection: "row",
+    alignItems: "center",
   },
   logo: {
-    width: 30, // Kích thước logo
-    height: 30, // Kích thước logo
-    marginRight: 10, // Khoảng cách giữa logo và tên
+    width: 60,
+    height: 60,
+    marginRight: 10,
   },
   headerLeftText: {
-    fontSize: 18, // Kích thước chữ
-    fontWeight: "bold", // Chữ đậm
-    color: "#2196F3", // Màu chữ
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#2196F3",
   },
   headerRightButton: {
     marginRight: 15,
@@ -92,8 +105,8 @@ const styles = StyleSheet.create({
   },
   headerRightText: {
     fontSize: 16,
-    color: "#2196F3", // Màu chữ, có thể thay đổi theo ý bạn
-    fontWeight: "bold", // Để chữ đậm
+    color: "#2196F3",
+    fontWeight: "bold",
   },
 });
 

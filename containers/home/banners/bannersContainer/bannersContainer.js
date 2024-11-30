@@ -10,7 +10,6 @@ const BannersContainer = () => {
   const fetchBanners = async () => {
     try {
       const response = await bannerService.getBanners();
-      console.log("🚀 ~ fetchBanners ~ response:", response);
       setBanners(response);
     } catch (error) {
       console.error(error);
@@ -52,14 +51,14 @@ const BannersContainer = () => {
 const styles = StyleSheet.create({
   container: {
     overflow: "hidden",
-    maxHeight: 250,
+    maxHeight: 230,
   },
   swiper: {
-    height: 250,
+    height: 230,
     overflow: "hidden",
   },
   bannerItem: {
-    height: 250,
+    height: 230,
     position: "relative",
     width: "100%",
     overflow: "hidden", // Cắt phần nội dung thừa

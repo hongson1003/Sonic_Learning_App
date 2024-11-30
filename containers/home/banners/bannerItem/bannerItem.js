@@ -40,16 +40,16 @@ const styles = StyleSheet.create({
     padding: 20,
     shadowColor: "#000",
     height: "100%",
-    maxHeight: 250,
+    maxHeight: 230,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#fff", // Đặt màu trắng cho tiêu đề khi nền có gradient
     marginBottom: 10,
   },
   description: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#fff", // Đặt màu trắng cho mô tả khi nền có gradient
     marginBottom: 20,
   },
