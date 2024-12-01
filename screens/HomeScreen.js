@@ -15,6 +15,7 @@ import { CategoryTabList } from "../containers/home/categoryTabList";
 import { Hello } from "../containers/home/hello";
 import { NotificationHeader } from "../containers/home/notificationHeader";
 import { ServiceContainer } from "../containers/home/services";
+import { CategoryList } from "../containers/home/categories";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,6 +74,7 @@ const HomeScreen = ({ navigation }) => {
       <BannersContainer />
       <CategoryTabList />
       <ServiceContainer />
+      <CategoryList />
     </ScrollView>
   );
 };
