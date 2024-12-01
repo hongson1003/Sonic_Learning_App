@@ -1,6 +1,5 @@
 const APP_ROUTES = {
   WELCOME: "Welcome",
-  LOGIN: "Login",
   HOME: "Home",
   ACCOUNT: "Account",
 };

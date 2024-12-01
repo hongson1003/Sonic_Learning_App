@@ -1,12 +1,16 @@
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import {
   FlatList,
-  Text,
-  View,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { APP_KEYS, APP_ROUTES } from "../../../constants";
+import { setUser } from "../../../context/slices";
 
 // Dữ liệu các tùy chọn cài đặt tài khoản
 const settingsData = [
@@ -17,8 +21,16 @@ const settingsData = [
 ];
 
 const AccountSettingList = ({ navigation }) => {
-  const handleOnClickSettingItem = (id) => {
-    console.log("🚀 ~ AccountSettingList ~ id:", id);
+  const dispatch = useDispatch();
+
+  const handleOnClickSettingItem = async (id) => {
+    if (id === "5") {
+      // Đăng xuất
+      await AsyncStorage.removeItem(APP_KEYS.ACCESS_TOKEN);
+      await AsyncStorage.removeItem(APP_KEYS.REFRESH_TOKEN);
+      navigation.navigate(APP_ROUTES.WELCOME);
+      dispatch(setUser(null));
+    }
   };
 
   const renderItem = ({ item }) => (

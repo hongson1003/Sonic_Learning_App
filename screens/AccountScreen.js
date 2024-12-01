@@ -2,9 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
+import { LoadingScreen } from "../components/loading";
 import { AccountInfo } from "../containers/account/accountInfo";
-import { getImage } from "../utils";
 import { AccountSettingList } from "../containers/account/accountSettingList";
+import { getImage } from "../utils";
 
 const AccountScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user?.data);
@@ -18,6 +19,10 @@ const AccountScreen = ({ navigation }) => {
       ),
     });
   }, [navigation]);
+
+  if (!user) {
+    return <LoadingScreen />;
+  }
 
   return (
     <View style={styles.container}>

@@ -1,1 +1,1 @@
-export { default as AccountSettingList } from "./accountSettingList";
+export { default as AccountSettingList } from "./AccountSettingList";
