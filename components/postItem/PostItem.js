@@ -23,6 +23,7 @@ const PostItem = ({ data }) => {
           <Image
             source={{ uri: getImage(data.authorAvatar) }}
             style={styles.avatar}
+            resizeMode="cover"
           />
           <View style={styles.textContainer}>
             <Text style={styles.authorName} numberOfLines={1}>
@@ -41,10 +42,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
     elevation: 3,
     maxWidth: 200,
     width: "48%",
@@ -52,7 +49,6 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 120,
-    resizeMode: "cover",
   },
   infoContainer: {
     padding: 10,

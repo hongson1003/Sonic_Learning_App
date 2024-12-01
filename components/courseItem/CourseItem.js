@@ -9,6 +9,7 @@ const CourseItem = ({ data }) => {
       <Image
         source={{ uri: getImage(data.thumbnailUrl) }}
         style={styles.image}
+        resizeMode="cover"
       />
 
       {/* Title, Rating, Views */}
@@ -36,16 +37,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
     maxWidth: 200,
   },
   image: {
     width: "100%",
     height: 120,
-    resizeMode: "cover",
   },
   infoContainer: {
     padding: 10,

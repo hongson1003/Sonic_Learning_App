@@ -38,7 +38,6 @@ const BannerItem = ({ title, description, href, bg, btnColor, btnText }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    shadowColor: "#000",
     height: "100%",
     maxHeight: 230,
   },

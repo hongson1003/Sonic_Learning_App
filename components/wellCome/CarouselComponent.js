@@ -9,7 +9,7 @@ const CarouselComponent = ({ data, onSnapToItem }) => {
 
   const renderItem = ({ item }) => (
     <View style={styles.slide}>
-      <Image source={item.image} style={styles.image} />
+      <Image source={item.image} style={styles.image} resizeMode="cover" />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
     </View>
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     height: 280,
     borderRadius: 20,
     marginBottom: 20,
-    resizeMode: "cover",
   },
   title: {
     fontSize: 28,

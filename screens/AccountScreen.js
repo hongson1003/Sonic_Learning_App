@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import { AccountInfo } from "../containers/account/accountInfo";
 import { getImage } from "../utils";
+import { AccountSettingList } from "../containers/account/accountSettingList";
 
 const AccountScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user?.data);
@@ -25,6 +26,7 @@ const AccountScreen = ({ navigation }) => {
         name={user.fullName}
         email={user.email}
       />
+      <AccountSettingList navigation={navigation} />
     </View>
   );
 };
