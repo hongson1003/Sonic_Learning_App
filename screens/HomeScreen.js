@@ -16,6 +16,7 @@ import { CategoryTabList } from "../containers/home/categoryTabList";
 import { Hello } from "../containers/home/hello";
 import { MostViewedCourseList } from "../containers/home/mostViewedCourseList";
 import { NotificationHeader } from "../containers/home/notificationHeader";
+import { PostContainer } from "../containers/home/postContainer";
 import { ServiceContainer } from "../containers/home/services";
 
 const HomeScreen = ({ navigation }) => {
@@ -77,6 +78,7 @@ const HomeScreen = ({ navigation }) => {
       <ServiceContainer />
       <CategoryList />
       <MostViewedCourseList />
+      <PostContainer />
     </ScrollView>
   );
 };

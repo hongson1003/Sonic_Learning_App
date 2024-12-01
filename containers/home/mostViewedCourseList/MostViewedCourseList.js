@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CourseList } from "../../../components/coursesList";
 import { APP_QUERIES } from "../../../constants";
-import { CourseService } from "../../../services";
+import { courseService } from "../../../services";
 
 const MostViewedCourseList = () => {
   const [mostViewedCourses, setMostViewedCourses] = useState([]);
 
   const fetchMostViewedCourses = async () => {
     try {
-      const res = await CourseService.getCourses(
+      const res = await courseService.getCourses(
         {
           sortBy: APP_QUERIES.POPULAR,
           size: 6,
