@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { SettingsScreen } from "../screens";
+import { APP_ROUTES } from "../constants";
+import { AccountScreen } from "../screens";
 import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,12 +13,10 @@ const BottomTabs = ({ navigation }) => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Home") {
+          if (route.name === APP_ROUTES.HOME) {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Profile") {
+          } else if (route.name === APP_ROUTES.ACCOUNT) {
             iconName = focused ? "person" : "person-outline";
-          } else if (route.name === "Settings") {
-            iconName = focused ? "settings" : "settings-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -29,9 +27,8 @@ const BottomTabs = ({ navigation }) => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name={APP_ROUTES.HOME} component={HomeScreen} />
+      <Tab.Screen name={APP_ROUTES.ACCOUNT} component={AccountScreen} />
     </Tab.Navigator>
   );
 };

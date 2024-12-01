@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-    marginBottom: 10,
+    marginBottom: 15,
     minWidth: 300,
   },
   thumbnail: {

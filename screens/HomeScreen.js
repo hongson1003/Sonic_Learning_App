@@ -36,12 +36,10 @@ const HomeScreen = ({ navigation }) => {
       headerTitle: "",
       headerLeft: () => (
         <View style={styles.headerLeft}>
-          {/* Logo */}
           <Image
-            source={require("../assets/sonic-learning-logo.png")} // Chỉ định đường dẫn logo
+            source={require("../assets/sonic-learning-logo.png")}
             style={styles.logo}
           />
-          {/* Tên "Sonic Learning" */}
           <Text style={styles.headerLeftText}>Sonic Learning</Text>
         </View>
       ),
@@ -87,7 +85,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingBottom: 10,
   },
   headerLeft: {
     flexDirection: "row",
