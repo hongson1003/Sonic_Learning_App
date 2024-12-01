@@ -2,6 +2,7 @@ const APP_ROUTES = {
   WELCOME: "Welcome",
   HOME: "Home",
   ACCOUNT: "Account",
+  SEARCH: "Search",
 };
 
 export const APP_QUERIES = {
