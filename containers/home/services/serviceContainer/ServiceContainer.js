@@ -9,7 +9,6 @@ const ServiceContainer = () => {
   const fetchLinkServices = async () => {
     try {
       const res = await linkServiceService.getAll();
-      console.log("🚀 ~ fetchLinkServices ~ res:", res);
       setLinkServices(res);
     } catch (error) {
       console.log("🚀 ~ fetchLinkServices ~ error:", error);

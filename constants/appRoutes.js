@@ -7,6 +7,7 @@ const APP_ROUTES = {
 export const APP_QUERIES = {
   PRICE: "price",
   CATEGORY: "category",
+  POPULAR: "popular",
 };
 
 export default APP_ROUTES;

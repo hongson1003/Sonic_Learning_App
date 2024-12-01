@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const CategoryItem = ({ name, courseCount, onRedirect }) => {
   return (
@@ -8,7 +8,7 @@ const CategoryItem = ({ name, courseCount, onRedirect }) => {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.courseCount}>Số khoá học: {courseCount}</Text>
       </View>
-      <TouchableOpacity onPress={onRedirect} style={styles.button}>
+      <TouchableOpacity onPress={onRedirect} style={styles.categoryButton}>
         <Text style={styles.redirectText}>Xem chi tiết</Text>
       </TouchableOpacity>
     </View>
@@ -42,14 +42,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#718096",
   },
-  button: {
-    paddingVertical: 8,
+  categoryButton: {
+    backgroundColor: "transparent",
+    paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: "#1e90ff",
-    borderRadius: 8,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#1e90ff",
   },
   redirectText: {
-    color: "#fff",
+    color: "#1e90ff",
     fontWeight: "600",
     fontSize: 14,
   },

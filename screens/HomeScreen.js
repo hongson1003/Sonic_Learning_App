@@ -11,11 +11,12 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome"; // Import Icon từ react-native-vector-icons
 import { APP_KEYS, APP_ROUTES } from "../constants";
 import { BannersContainer } from "../containers/home/banners";
+import { CategoryList } from "../containers/home/categories";
 import { CategoryTabList } from "../containers/home/categoryTabList";
 import { Hello } from "../containers/home/hello";
+import { MostViewedCourseList } from "../containers/home/mostViewedCourseList";
 import { NotificationHeader } from "../containers/home/notificationHeader";
 import { ServiceContainer } from "../containers/home/services";
-import { CategoryList } from "../containers/home/categories";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -75,6 +76,7 @@ const HomeScreen = ({ navigation }) => {
       <CategoryTabList />
       <ServiceContainer />
       <CategoryList />
+      <MostViewedCourseList />
     </ScrollView>
   );
 };

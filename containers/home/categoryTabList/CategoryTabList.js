@@ -38,6 +38,14 @@ const CategoryTabList = () => {
 
   return (
     <View style={styles.container}>
+      {/* Tiêu đề và nút Xem thêm */}
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Khóa Học Theo Danh Mục</Text>
+        <TouchableOpacity style={styles.seeMoreButton}>
+          <Text style={styles.seeMoreText}>Xem thêm</Text>
+        </TouchableOpacity>
+      </View>
+
       {/* Tab lựa chọn danh mục */}
       <ScrollView
         horizontal
@@ -88,6 +96,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#f9f9f9",
   },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  seeMoreButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: "#4CAF50",
+    borderRadius: 5,
+  },
+  seeMoreText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
   tabsContainer: {
     flexDirection: "row",
     paddingVertical: 10,
@@ -111,17 +141,6 @@ const styles = StyleSheet.create({
   selectedTabText: {
     color: "#fff",
     fontWeight: "bold",
-  },
-  courseItem: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    padding: 10,
-    marginBottom: 15,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
   },
 });
 

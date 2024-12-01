@@ -3,12 +3,12 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { categoryService } from "../../../../services";
-import { CategoryItem } from "../categoryItem";
 import { flattenCategories } from "../../../../utils";
+import { CategoryItem } from "../categoryItem";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -46,8 +46,8 @@ const CategoryList = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Danh mục</Text>
-        <TouchableOpacity onPress={() => onRedirect()}>
-          <Text style={styles.viewAllButton}>Xem tất cả</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Xem Thêm</Text>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -65,6 +65,19 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#fff",
   },
+  button: {
+    backgroundColor: "#4CAF50", // Nút "Xem Thêm" với màu nền nổi bật
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -76,10 +89,15 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#333",
   },
-  viewAllButton: {
+  categoryButton: {
+    backgroundColor: "transparent",
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+  },
+  categoryButtonText: {
+    color: "#4CAF50", // Chỉ sử dụng màu chữ xanh, không có nền hoặc viền
     fontSize: 14,
-    fontWeight: "600",
-    color: "#1e90ff",
+    fontWeight: "500",
   },
 });
 

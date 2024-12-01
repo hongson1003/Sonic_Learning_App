@@ -31,8 +31,8 @@ const CourseItem = ({ data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 200,
-    marginBottom: 20,
+    flex: 1,
+    marginBottom: 16,
     borderRadius: 10,
     overflow: "hidden",
     backgroundColor: "#fff",
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
+    maxWidth: 200,
   },
   image: {
     width: "100%",
@@ -53,17 +54,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#333",
-    marginBottom: 5,
+    marginBottom: 10,
     lineHeight: 22,
     minHeight: 44,
   },
   detailsContainer: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
   },
   rating: {
     fontSize: 14,
     color: "#FFB400",
+    marginRight: 5,
   },
   views: {
     fontSize: 14,
