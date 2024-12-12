@@ -1,14 +1,16 @@
 import { useState } from "react";
 import {
-  Text,
-  View,
-  TextInput,
   Button,
   FlatList,
   Image,
   ScrollView,
   StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import RenderHTML from "react-native-render-html";
 import keywordService from "../../services/searchService";
 import { getImage } from "../../utils";
 
@@ -42,38 +44,48 @@ const SearchContainer = () => {
         source={{ uri: getImage(item.thumbnailUrl) }}
         style={styles.courseImage}
       />
-      <Text style={styles.courseTitle}>{item.title}</Text>
-      <Text style={styles.courseDescription}>{item.description}</Text>
-      <Text style={styles.coursePrice}>Price: {item.price}</Text>
+      <View style={styles.courseInfo}>
+        <Text style={styles.courseTitle}>{item.title}</Text>
+        <Text style={styles.courseDescription}>
+          {item.description.length > 100
+            ? `${item.description.substring(0, 100)}...`
+            : item.description}
+        </Text>
+        <Text style={styles.coursePrice}>Price: {item.price}</Text>
+      </View>
     </View>
   );
 
-  const renderPosts = ({ item }) => {
-    // Giới hạn độ dài của nội dung bài viết
-    const truncatedContent =
-      item.contentHtml.length > 100
-        ? item.contentHtml.substring(0, 100) + "..." // Cắt ngắn và thêm dấu "..."
-        : item.contentHtml;
-
-    return (
-      <View style={styles.card}>
-        <Text style={styles.postTitle}>{item.title}</Text>
-        <Text style={styles.postContent}>{truncatedContent}</Text>
-        {/* Thêm nút "Xem thêm" nếu cần */}
-        {item.contentHtml.length > 100 && (
-          <Button title="See more" onPress={() => alert("Show full content")} />
-        )}
-      </View>
-    );
-  };
+  const renderPosts = ({ item }) => (
+    <View style={styles.card}>
+      <Text style={styles.postTitle}>{item.title}</Text>
+      <RenderHTML
+        style={styles.postContent}
+        contentWidth={300}
+        source={{
+          html:
+            item.contentHtml.length > 100
+              ? `${item.contentHtml.substring(0, 100)}...`
+              : item.contentHtml,
+        }}
+      />
+      {item.contentHtml.length > 100 && (
+        <TouchableOpacity onPress={() => alert("Show full content")}>
+          <Text style={styles.seeMore}>See more</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 
   const renderUsers = ({ item }) => (
     <View style={styles.card}>
-      <Image
-        source={{ uri: getImage(item.avatar) }}
-        style={styles.userAvatar}
-      />
-      <Text style={styles.userName}>{item.fullName}</Text>
+      <View style={styles.userInfo}>
+        <Image
+          source={{ uri: getImage(item.avatar) }}
+          style={styles.userAvatar}
+        />
+        <Text style={styles.userName}>{item.fullName}</Text>
+      </View>
     </View>
   );
 
@@ -204,6 +216,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
   },
+  courseInfo: {
+    marginTop: 10,
+  },
   courseTitle: {
     fontSize: 16,
     fontWeight: "bold",
@@ -228,11 +243,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#555",
   },
+  seeMore: {
+    color: "#4CAF50",
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: 10,
+  },
+  userInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   userAvatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginBottom: 10,
+    marginRight: 10,
   },
   userName: {
     fontSize: 16,
