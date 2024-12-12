@@ -1,8 +1,8 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
-import { CourseItem } from "../courseItem";
-import { useNavigation } from "@react-navigation/native";
 import { APP_ROUTES } from "../../constants";
+import { CourseItem } from "../courseItem";
 
 const CourseList = ({ data }) => {
   const navigation = useNavigation();
