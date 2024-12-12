@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { getImage, getVideo } from "../../../utils";
+import { ViewCourseHeader } from "../viewCourseHeader";
 
 const CourseDetail = ({ course }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,129 +27,133 @@ const CourseDetail = ({ course }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Hình ảnh khóa học */}
-      <Image
-        source={{ uri: getImage(course.thumbnailUrl) }}
-        style={styles.thumbnail}
-      />
+    <>
+      <ViewCourseHeader navigation={navigation} />
 
-      {/* Tiêu đề và danh mục khóa học */}
-      <View style={styles.header}>
-        <Text style={styles.title}>{course.title}</Text>
-        <Text style={styles.category}>Danh mục: {course.category.name}</Text>
-      </View>
+      <ScrollView style={styles.container}>
+        {/* Hình ảnh khóa học */}
+        <Image
+          source={{ uri: getImage(course.thumbnailUrl) }}
+          style={styles.thumbnail}
+        />
 
-      {/* Thông tin tác giả */}
-      <Text style={styles.author}>Tác giả: {course.author.fullName}</Text>
+        {/* Tiêu đề và danh mục khóa học */}
+        <View style={styles.header}>
+          <Text style={styles.title}>{course.title}</Text>
+          <Text style={styles.category}>Danh mục: {course.category.name}</Text>
+        </View>
 
-      {/* Mô tả khóa học */}
-      <Text style={styles.description}>{course.description}</Text>
+        {/* Thông tin tác giả */}
+        <Text style={styles.author}>Tác giả: {course.author.fullName}</Text>
 
-      {/* Gói khóa học */}
-      <View style={styles.package}>
-        <Text style={styles.packageTitle}>Gói khóa học:</Text>
-        <Text style={styles.packageName}>{course.coursePackage.name}</Text>
-        <Text>{course.coursePackage.descriptionVi}</Text>
-      </View>
+        {/* Mô tả khóa học */}
+        <Text style={styles.description}>{course.description}</Text>
 
-      {/* "Will learns" - Những gì học viên sẽ học */}
-      <View style={styles.willLearns}>
-        <Text style={styles.packageTitle}>Bạn sẽ học được:</Text>
-        {course.learningOutcomes && course.learningOutcomes.length > 0 ? (
-          course.learningOutcomes.map((item, index) => (
-            <Text key={index} style={styles.learningItem}>
-              {item}
-            </Text>
-          ))
-        ) : (
-          <Text style={styles.learningItem}>Chưa có mục tiêu học.</Text>
-        )}
-      </View>
+        {/* Gói khóa học */}
+        <View style={styles.package}>
+          <Text style={styles.packageTitle}>Gói khóa học:</Text>
+          <Text style={styles.packageName}>{course.coursePackage.name}</Text>
+          <Text>{course.coursePackage.descriptionVi}</Text>
+        </View>
 
-      {/* Chương và Bài học */}
-      <View style={styles.chapterSection}>
-        <Text style={styles.packageTitle}>Chương và Bài học:</Text>
-        {course.chapters && course.chapters.length > 0 ? (
-          course.chapters.map((chapter, index) => (
-            <View key={index} style={styles.chapter}>
-              <Text style={styles.chapterTitle}>
-                Chương {index + 1}: {chapter.title}
+        {/* "Will learns" - Những gì học viên sẽ học */}
+        <View style={styles.willLearns}>
+          <Text style={styles.packageTitle}>Bạn sẽ học được:</Text>
+          {course.learningOutcomes && course.learningOutcomes.length > 0 ? (
+            course.learningOutcomes.map((item, index) => (
+              <Text key={index} style={styles.learningItem}>
+                {item}
               </Text>
-              {chapter.lessons && chapter.lessons.length > 0 ? (
-                chapter.lessons.map((lesson, i) => (
-                  <View key={i} style={styles.lesson}>
-                    <Text style={styles.lessonTitle}>{lesson.title}</Text>
-                    {/* Kiểm tra nếu bài học có video và khóa học miễn phí, hiển thị nút xem */}
-                    {lesson.videoUrl && course.price === 0 ? (
-                      <TouchableOpacity
-                        style={[
-                          styles.button,
-                          !lesson.videoUrl && styles.disabledButton,
-                        ]}
-                        onPress={() => openVideo(lesson.videoUrl)}
-                        disabled={!lesson.videoUrl}
-                      >
-                        <Text style={styles.buttonText}>Xem video</Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        style={[styles.button, styles.disabledButton]}
-                        disabled
-                      >
-                        <Text style={styles.buttonText}>Không thể xem</Text>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.lessonTitle}>
-                  Chưa có bài học cho chương này.
+            ))
+          ) : (
+            <Text style={styles.learningItem}>Chưa có mục tiêu học.</Text>
+          )}
+        </View>
+
+        {/* Chương và Bài học */}
+        <View style={styles.chapterSection}>
+          <Text style={styles.packageTitle}>Chương và Bài học:</Text>
+          {course.chapters && course.chapters.length > 0 ? (
+            course.chapters.map((chapter, index) => (
+              <View key={index} style={styles.chapter}>
+                <Text style={styles.chapterTitle}>
+                  Chương {index + 1}: {chapter.title}
                 </Text>
-              )}
-            </View>
-          ))
-        ) : (
-          <Text style={styles.chapterTitle}>
-            Chưa có chương và bài học cho khóa học này.
+                {chapter.lessons && chapter.lessons.length > 0 ? (
+                  chapter.lessons.map((lesson, i) => (
+                    <View key={i} style={styles.lesson}>
+                      <Text style={styles.lessonTitle}>{lesson.title}</Text>
+                      {/* Kiểm tra nếu bài học có video và khóa học miễn phí, hiển thị nút xem */}
+                      {lesson.videoUrl && course.price === 0 ? (
+                        <TouchableOpacity
+                          style={[
+                            styles.button,
+                            !lesson.videoUrl && styles.disabledButton,
+                          ]}
+                          onPress={() => openVideo(lesson.videoUrl)}
+                          disabled={!lesson.videoUrl}
+                        >
+                          <Text style={styles.buttonText}>Xem video</Text>
+                        </TouchableOpacity>
+                      ) : (
+                        <TouchableOpacity
+                          style={[styles.button, styles.disabledButton]}
+                          disabled
+                        >
+                          <Text style={styles.buttonText}>Không thể xem</Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.lessonTitle}>
+                    Chưa có bài học cho chương này.
+                  </Text>
+                )}
+              </View>
+            ))
+          ) : (
+            <Text style={styles.chapterTitle}>
+              Chưa có chương và bài học cho khóa học này.
+            </Text>
+          )}
+        </View>
+
+        {/* Thông tin bổ sung */}
+        <View style={styles.info}>
+          <Text style={styles.infoText}>
+            Số lượng bài học: {course.lessonCount}
           </Text>
+          <Text style={styles.infoText}>
+            Thời lượng: {Math.floor(course.duration / 60)} phút
+          </Text>
+          <Text style={styles.infoText}>
+            Giá: {course.price === 0 ? "Miễn phí" : `${course.price} VND`}
+          </Text>
+        </View>
+
+        {/* Modal Video - Thêm iframe video từ Google Drive */}
+        {videoUrl && (
+          <Modal
+            visible={modalVisible}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <iframe
+                src={getVideo(videoUrl)}
+                width="100%"
+                height="100%"
+                style={styles.iframe}
+                allowFullScreen
+              />
+              <Button title="Đóng" onPress={() => setModalVisible(false)} />
+            </View>
+          </Modal>
         )}
-      </View>
-
-      {/* Thông tin bổ sung */}
-      <View style={styles.info}>
-        <Text style={styles.infoText}>
-          Số lượng bài học: {course.lessonCount}
-        </Text>
-        <Text style={styles.infoText}>
-          Thời lượng: {Math.floor(course.duration / 60)} phút
-        </Text>
-        <Text style={styles.infoText}>
-          Giá: {course.price === 0 ? "Miễn phí" : `${course.price} VND`}
-        </Text>
-      </View>
-
-      {/* Modal Video - Thêm iframe video từ Google Drive */}
-      {videoUrl && (
-        <Modal
-          visible={modalVisible}
-          animationType="slide"
-          transparent={true}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <iframe
-              src={getVideo(videoUrl)}
-              width="100%"
-              height="100%"
-              style={styles.iframe}
-              allowFullScreen
-            />
-            <Button title="Đóng" onPress={() => setModalVisible(false)} />
-          </View>
-        </Modal>
-      )}
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 
