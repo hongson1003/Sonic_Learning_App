@@ -1,10 +1,11 @@
-import { Text, View } from "react-native";
+import { ScrollView } from "react-native";
+import { SearchContainer } from "../containers/search";
 
 const SearchScreen = () => {
   return (
-    <View>
-      <Text>Search Screen</Text>
-    </View>
+    <ScrollView style={{ flex: 1 }}>
+      <SearchContainer />
+    </ScrollView>
   );
 };
 

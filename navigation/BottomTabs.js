@@ -63,12 +63,18 @@ const BottomTabs = ({ navigation }) => {
       })}
     >
       <Tab.Screen name={APP_ROUTES.HOME} component={HomeScreen} />
-      <Tab.Screen name={APP_ROUTES.SEARCH} component={SearchScreen} />
+      <Tab.Screen
+        name={APP_ROUTES.SEARCH}
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Tab.Screen
         name={APP_ROUTES.VIEW_COURSE}
         component={ViewCourseScreen}
         options={{
-          tabBarItemStyle: { display: "none" }, // Ẩn tab này khi ở trang ViewCourseScreen
+          tabBarItemStyle: { display: "none" },
           headerShown: false, // Ẩn header khi ở trang ViewCourseScreen
         }}
       />

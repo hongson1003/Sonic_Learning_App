@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons"; // Để sử dụng biểu tượng ghim
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import moment from "moment"; // Cài đặt moment.js để xử lý thời gian
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { APP_KEYS } from "../../../constants";
@@ -54,7 +54,6 @@ const ViewPostHeader = ({
       </TouchableOpacity>
 
       {/* Hiển thị thời gian đăng bài */}
-      <Text style={styles.timePosted}>{formattedDate}</Text>
 
       {/* Avatar và tên tác giả */}
       <View style={styles.authorInfo}>
@@ -62,7 +61,10 @@ const ViewPostHeader = ({
           style={styles.avatar}
           source={{ uri: getImage(authorAvatar) }} // Sử dụng URL của avatar
         />
-        <Text style={styles.authorName}>{authorName}</Text>
+        <View>
+          <Text style={styles.authorName}>{authorName}</Text>
+          <Text style={styles.timePosted}>{formattedDate}</Text>
+        </View>
       </View>
 
       {/* Nút ghim bài viết */}
