@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Swiper from "react-native-swiper";
 import { bannerService } from "../../../../services";
-import { BannerItem } from "../bannerItem/Index";
+import { BannerItem } from "../bannerItem";
 
 const BannersContainer = () => {
   const [banners, setBanners] = useState([]);

@@ -1,2 +1,2 @@
-export { BannersContainer } from "./bannersContainer/Index";
-export { BannerItem } from "./bannerItem/Index";
+export { BannersContainer } from "./bannersContainer";
+export { BannerItem } from "./bannerItem";

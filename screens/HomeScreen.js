@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // Import Icon từ react-native-vector-icons
 import { APP_KEYS, APP_ROUTES } from "../constants";
-import { BannersContainer } from "../containers/home/banners/Index";
+import { BannersContainer } from "../containers/home/banners";
 import { CategoryList } from "../containers/home/categories";
 import { CategoryTabList } from "../containers/home/categoryTabList";
 import { Hello } from "../containers/home/hello";
