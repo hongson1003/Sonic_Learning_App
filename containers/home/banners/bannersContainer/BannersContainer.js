@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Swiper from "react-native-swiper";
 import { bannerService } from "../../../../services";
-import { BannerItem } from "../bannerItem";
+import { BannerItem } from "../bannerItem/Index";
 
 const BannersContainer = () => {
   const [banners, setBanners] = useState([]);
@@ -35,6 +35,7 @@ const BannersContainer = () => {
             <Fragment key={index}>
               <BannerItem
                 title={banner.title}
+                thumbnailUrl={banner.thumbnailUrl}
                 description={banner.description}
                 href={banner.linkTo}
                 bg={banner.bg}

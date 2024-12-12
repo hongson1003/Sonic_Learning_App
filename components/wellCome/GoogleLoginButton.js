@@ -11,7 +11,6 @@ WebBrowser.maybeCompleteAuthSession();
 const GoogleLoginButton = ({ onLoginSuccess }) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     responseType: "id_token",
-    // androidClientId: APP_ENVS.EXPO_PUBLIC_ANDROID_CLIENT_ID,
     webClientId: APP_ENVS.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
     scopes: ["email"],
   });

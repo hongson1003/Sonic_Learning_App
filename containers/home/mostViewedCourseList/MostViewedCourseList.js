@@ -42,34 +42,47 @@ const MostViewedCourseList = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: "#f9f9f9", // Màu nền nhẹ nhàng
+    borderRadius: 10, // Góc bo tròn nhẹ cho khung
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5, // Bóng trên Android
   },
   headerContainer: {
     flexDirection: "row",
-    justifyContent: "space-between", // Chia đều khoảng cách giữa tiêu đề và nút
-    alignItems: "center", // Căn chỉnh theo chiều dọc
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    paddingBottom: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: "#4CAF50", // Đường kẻ màu nổi bật
+    paddingBottom: 8,
   },
   header: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#333",
-    textAlign: "left",
+    color: "#2C3E50", // Màu xanh đậm
+    textTransform: "uppercase", // Viết hoa toàn bộ
+    letterSpacing: 1.2, // Khoảng cách giữa các chữ
   },
   button: {
-    backgroundColor: "#4CAF50",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "#4CAF50", // Màu xanh lá cây nổi bật
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20, // Góc bo tròn đầy đặn
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonText: {
-    color: "#fff",
+    color: "#fff", // Màu chữ trắng
     fontSize: 14,
     fontWeight: "bold",
+    textTransform: "uppercase", // Viết hoa
+    letterSpacing: 0.8,
   },
 });
 

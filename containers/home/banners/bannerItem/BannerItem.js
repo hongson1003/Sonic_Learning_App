@@ -1,13 +1,23 @@
 import React from "react";
 import {
+  Image,
   Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { getImage } from "../../../../utils";
 
-const BannerItem = ({ title, description, href, bg, btnColor, btnText }) => {
+const BannerItem = ({
+  title,
+  description,
+  thumbnailUrl,
+  href,
+  bg,
+  btnColor,
+  btnText,
+}) => {
   const onPress = () => {
     if (href) {
       Linking.openURL(href);
@@ -25,6 +35,15 @@ const BannerItem = ({ title, description, href, bg, btnColor, btnText }) => {
         {description}
       </Text>
 
+      <View style={styles.viewThumbnail}>
+        <Image
+          source={{
+            uri: getImage(thumbnailUrl),
+          }}
+          style={styles.thumbnail}
+        />
+      </View>
+
       <TouchableOpacity
         style={[styles.button, { backgroundColor: btnColor }]}
         onPress={onPress}
@@ -39,7 +58,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     height: "100%",
-    maxHeight: 230,
   },
   title: {
     fontSize: 22,
@@ -63,6 +81,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "500",
+  },
+  viewThumbnail: {
+    alignItems: "flex-end",
+  },
+  thumbnail: {
+    width: 70,
+    height: 70,
+    transform: "scale(1.5)",
   },
 });
 

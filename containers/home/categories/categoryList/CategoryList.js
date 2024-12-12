@@ -45,7 +45,7 @@ const CategoryList = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Danh mục</Text>
+        <Text style={styles.header}>Danh Mục</Text>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Xem Thêm</Text>
         </TouchableOpacity>
@@ -63,41 +63,47 @@ const CategoryList = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: "#fff",
-  },
-  button: {
-    backgroundColor: "#4CAF50", // Nút "Xem Thêm" với màu nền nổi bật
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
+    backgroundColor: "#f9f9f9", // Màu nền nhạt tạo cảm giác nhẹ nhàng
+    borderRadius: 12, // Góc bo tròn
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3, // Hiệu ứng nổi trên Android
   },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: "#4CAF50", // Đường kẻ dưới tiêu đề
+    paddingBottom: 8,
   },
   header: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#333",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#2C3E50", // Màu xanh đậm, chuyên nghiệp
+    textTransform: "uppercase",
+    letterSpacing: 1.2, // Khoảng cách giữa các chữ
   },
-  categoryButton: {
-    backgroundColor: "transparent",
-    paddingVertical: 0,
-    paddingHorizontal: 0,
+  button: {
+    backgroundColor: "#4CAF50", // Màu nền xanh nổi bật
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20, // Góc bo tròn mềm mại
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3, // Hiệu ứng bóng cho nút
   },
-  categoryButtonText: {
-    color: "#4CAF50", // Chỉ sử dụng màu chữ xanh, không có nền hoặc viền
+  buttonText: {
+    color: "#fff", // Màu chữ trắng nổi bật
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: "bold",
+    textTransform: "uppercase", // Viết hoa toàn bộ chữ
+    letterSpacing: 0.8,
   },
 });
 
