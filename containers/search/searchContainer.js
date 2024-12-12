@@ -11,10 +11,11 @@ import {
   View,
 } from "react-native";
 import RenderHTML from "react-native-render-html";
+import { APP_ROUTES } from "../../constants";
 import keywordService from "../../services/searchService";
 import { getImage } from "../../utils";
 
-const SearchContainer = () => {
+const SearchContainer = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +53,13 @@ const SearchContainer = () => {
             : item.description}
         </Text>
         <Text style={styles.coursePrice}>Price: {item.price}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(APP_ROUTES.VIEW_COURSE, { slug: item.slug })
+          }
+        >
+          <Text style={styles.seeMore}>See more</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -70,7 +78,11 @@ const SearchContainer = () => {
         }}
       />
       {item.contentHtml.length > 100 && (
-        <TouchableOpacity onPress={() => alert("Show full content")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(APP_ROUTES.VIEW_POST, { slug: item.slug })
+          }
+        >
           <Text style={styles.seeMore}>See more</Text>
         </TouchableOpacity>
       )}

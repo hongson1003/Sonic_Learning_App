@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { APP_ROUTES } from "../../../constants";
 
-const AccountInfo = ({ avatarUrl, name, email }) => {
+const AccountInfo = ({ avatarUrl, name, email, navigation }) => {
   return (
     <View style={styles.profileContainer}>
       <Image source={{ uri: avatarUrl }} style={styles.avatar} />
@@ -18,6 +19,9 @@ const AccountInfo = ({ avatarUrl, name, email }) => {
           <Text style={styles.email}>{email}</Text>
         </View>
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate(APP_ROUTES.PROFILE)}>
+        <Text>Xem thông tin cá nhân</Text>
+      </TouchableOpacity>
     </View>
   );
 };

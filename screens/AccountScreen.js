@@ -30,6 +30,7 @@ const AccountScreen = ({ navigation }) => {
         avatarUrl={getImage(user.avatar)}
         name={user.fullName}
         email={user.email}
+        navigation={navigation}
       />
       <AccountSettingList navigation={navigation} />
     </View>
