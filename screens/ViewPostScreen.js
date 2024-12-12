@@ -3,10 +3,11 @@ import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { ViewPostContainer } from "../containers/viewPost";
 import { postService } from "../services";
 
-const ViewPostScreen = ({ route }) => {
+const ViewPostScreen = ({ route, navigation }) => {
   const { slug } = route.params;
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [refetch, setRefetch] = useState(false);
 
   const fetchPostDetail = async (slug) => {
     try {
@@ -23,7 +24,7 @@ const ViewPostScreen = ({ route }) => {
 
   useEffect(() => {
     fetchPostDetail(slug);
-  }, [slug]);
+  }, [slug, refetch]);
 
   if (isLoading) {
     return (
@@ -36,7 +37,7 @@ const ViewPostScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <ViewPostContainer data={data} />
+      <ViewPostContainer data={data} navigation={navigation} />
     </View>
   );
 };

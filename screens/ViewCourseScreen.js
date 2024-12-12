@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { CourseDetail } from "../containers/viewCourse/courseDetail";
 import { courseService } from "../services";
 
-const ViewCourseScreen = ({ route }) => {
+const ViewCourseScreen = ({ route, navigation }) => {
   const { slug } = route.params;
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,7 @@ const ViewCourseScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <CourseDetail course={data} />
+      <CourseDetail course={data} navigation={navigation} />
     </View>
   );
 };

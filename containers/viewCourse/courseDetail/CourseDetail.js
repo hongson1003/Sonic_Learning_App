@@ -19,7 +19,7 @@ import { CourseHeader } from "./courseHeader";
 import { CoursePackage } from "./coursePackage";
 import { LearningOutcomes } from "./learningOutcomes";
 
-const CourseDetail = ({ course }) => {
+const CourseDetail = ({ course, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
 

@@ -1,14 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { APP_ROUTES } from "../../../constants";
 
 const ViewCourseHeader = ({ navigation }) => {
   return (
     <View style={styles.headerContainer}>
       {/* Nút Trở về */}
       <TouchableOpacity
-        onPress={() => navigation.navigate(APP_ROUTES.HOME)}
+        onPress={() => navigation.goBack()}
         style={styles.backButton}
       >
         <Ionicons name="chevron-back" size={30} color="#2196F3" />
