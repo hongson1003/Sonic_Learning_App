@@ -3,6 +3,7 @@ const APP_ROUTES = {
   HOME: "Home",
   ACCOUNT: "Account",
   SEARCH: "Search",
+  VIEW_COURSE: "ViewCourse",
 };
 
 export const APP_QUERIES = {

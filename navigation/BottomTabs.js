@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { useSelector } from "react-redux";
 import { APP_ROUTES } from "../constants";
-import { AccountScreen, SearchScreen } from "../screens";
+import { AccountScreen, SearchScreen, ViewCourseScreen } from "../screens";
 import HomeScreen from "../screens/HomeScreen";
 
 const Tab = createBottomTabNavigator();
@@ -36,6 +36,15 @@ const BottomTabs = ({ navigation }) => {
     >
       <Tab.Screen name={APP_ROUTES.HOME} component={HomeScreen} />
       <Tab.Screen name={APP_ROUTES.SEARCH} component={SearchScreen} />
+      <Tab.Screen
+        name={APP_ROUTES.VIEW_COURSE}
+        component={ViewCourseScreen}
+        options={{
+          tabBarItemStyle: {
+            display: "none",
+          },
+        }}
+      />
       {user && (
         <Tab.Screen name={APP_ROUTES.ACCOUNT} component={AccountScreen} />
       )}

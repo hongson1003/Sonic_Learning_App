@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
       <NotificationHeader />
       <Hello />
       <BannersContainer />
-      <CategoryTabList />
+      <CategoryTabList navigation={navigation} />
       <ServiceContainer />
       <CategoryList />
       <MostViewedCourseList />

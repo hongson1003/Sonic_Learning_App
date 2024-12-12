@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import { CourseItem } from "../../../components/courseItem";
 import courseService from "../../../services/courseService";
+import { APP_ROUTES } from "../../../constants";
 
-const CategoryTabList = () => {
+const CategoryTabList = ({ navigation }) => {
   const [categoryCourses, setCategoryCourses] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -35,6 +36,18 @@ const CategoryTabList = () => {
     )
     .map((categoryCourse) => categoryCourse.courses)
     .flat();
+
+  const handleOnPressCourseItem = (data) => {
+    navigation.navigate(APP_ROUTES.VIEW_COURSE, {
+      slug: data.slug,
+    });
+  };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => handleOnPressCourseItem(item)}>
+      <CourseItem data={item} />
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
@@ -82,7 +95,7 @@ const CategoryTabList = () => {
         keyExtractor={(item, index) => index.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <CourseItem data={item} />}
+        renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
       />
     </View>
