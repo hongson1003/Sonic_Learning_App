@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { getImage, getVideo } from "../../../utils";
@@ -27,6 +28,10 @@ const CourseDetail = ({ course }) => {
       setVideoUrl(url);
       setModalVisible(true);
     }
+  };
+
+  const addToCart = () => {
+    console.log("Add to cart");
   };
 
   return (
@@ -74,6 +79,10 @@ const CourseDetail = ({ course }) => {
             Giá: {course.price === 0 ? "Miễn phí" : `${course.price} VND`}
           </Text>
         </View>
+
+        <TouchableOpacity style={styles.cartButton} onPress={addToCart}>
+          <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
+        </TouchableOpacity>
 
         {/* Modal Video */}
         {videoUrl && (
@@ -134,6 +143,13 @@ const styles = StyleSheet.create({
   iframe: {
     width: "90%",
     height: 300,
+  },
+  cartButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    backgroundColor: "#ffc107",
+    borderRadius: 5,
+    alignItems: "center",
   },
 });
 

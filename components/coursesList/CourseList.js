@@ -1,18 +1,29 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { CourseItem } from "../courseItem";
+import { useNavigation } from "@react-navigation/native";
+import { APP_ROUTES } from "../../constants";
 
 const CourseList = ({ data }) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = (slug) => {
+    navigation.navigate(APP_ROUTES.VIEW_COURSE, {
+      slug,
+    });
+  };
+
   const renderItem = ({ item }) => (
-    <View
+    <TouchableOpacity
       style={{
         flex: 1,
         maxWidth: "50%",
         marginHorizontal: 5,
       }}
+      onPress={() => handleOnPress(item.slug)}
     >
       <CourseItem data={item} />
-    </View>
+    </TouchableOpacity>
   );
 
   return (
