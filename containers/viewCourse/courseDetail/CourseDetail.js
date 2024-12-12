@@ -1,16 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
   Button,
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { getImage, getVideo } from "../../../utils";
-import { useNavigation } from "@react-navigation/native";
 
 const CourseDetail = ({ course }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,8 +33,11 @@ const CourseDetail = ({ course }) => {
         style={styles.thumbnail}
       />
 
-      {/* Tiêu đề */}
-      <Text style={styles.title}>{course.title}</Text>
+      {/* Tiêu đề và danh mục khóa học */}
+      <View style={styles.header}>
+        <Text style={styles.title}>{course.title}</Text>
+        <Text style={styles.category}>Danh mục: {course.category.name}</Text>
+      </View>
 
       {/* Thông tin tác giả */}
       <Text style={styles.author}>Tác giả: {course.author.fullName}</Text>
@@ -162,10 +165,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 16,
   },
+  header: {
+    marginBottom: 16,
+  },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#333",
+    marginBottom: 4,
+  },
+  category: {
+    fontSize: 16,
+    color: "#007bff",
     marginBottom: 8,
   },
   author: {
