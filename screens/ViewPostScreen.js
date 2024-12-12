@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { CourseDetail } from "../containers/viewCourse/courseDetail";
-import { courseService } from "../services";
 import { ViewPostContainer } from "../containers/viewPost";
+import { postService } from "../services";
 
 const ViewPostScreen = ({ route }) => {
   const { slug } = route.params;
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchCourseDetail = async (slug) => {
+  const fetchPostDetail = async (slug) => {
     try {
-      const response = await courseService.getCourseBySlug(slug);
+      const response = await postService.getPostSlug(slug);
       setData(response);
       setIsLoading(false);
     } catch (error) {
@@ -20,8 +19,10 @@ const ViewPostScreen = ({ route }) => {
     }
   };
 
+  console.log("🚀 ~ ViewPostScreen ~ data:", data);
+
   useEffect(() => {
-    fetchCourseDetail(slug);
+    fetchPostDetail(slug);
   }, [slug]);
 
   if (isLoading) {
@@ -35,7 +36,7 @@ const ViewPostScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <ViewPostContainer />
+      <ViewPostContainer data={data} />
     </View>
   );
 };

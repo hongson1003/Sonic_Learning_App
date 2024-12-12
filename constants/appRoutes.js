@@ -4,6 +4,7 @@ const APP_ROUTES = {
   ACCOUNT: "Account",
   SEARCH: "Search",
   VIEW_COURSE: "ViewCourse",
+  VIEW_POST: "ViewPost",
 };
 
 export const APP_QUERIES = {

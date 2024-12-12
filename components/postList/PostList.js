@@ -1,10 +1,27 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { PostItem } from "../postItem";
+import { useNavigation } from "@react-navigation/native";
+import { APP_ROUTES } from "../../constants";
 
 const PostList = ({ data }) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = (slug) => {
+    navigation.navigate(APP_ROUTES.VIEW_POST, { slug });
+  };
+
   const renderItem = ({ item }) => {
-    return <PostItem data={item} />;
+    return (
+      <TouchableOpacity
+        onPress={() => handleOnPress(item.slug)}
+        style={{
+          width: "48%",
+        }}
+      >
+        <PostItem data={item} />
+      </TouchableOpacity>
+    );
   };
 
   return (

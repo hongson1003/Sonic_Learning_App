@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { APP_ROUTES } from "../constants";
 import { AccountScreen, SearchScreen, ViewCourseScreen } from "../screens";
 import HomeScreen from "../screens/HomeScreen";
+import ViewPostScreen from "../screens/ViewPostScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -66,6 +67,14 @@ const BottomTabs = ({ navigation }) => {
       <Tab.Screen
         name={APP_ROUTES.VIEW_COURSE}
         component={ViewCourseScreen}
+        options={{
+          tabBarItemStyle: { display: "none" }, // Ẩn tab này khi ở trang ViewCourseScreen
+          headerShown: false, // Ẩn header khi ở trang ViewCourseScreen
+        }}
+      />
+      <Tab.Screen
+        name={APP_ROUTES.VIEW_POST}
+        component={ViewPostScreen}
         options={{
           tabBarItemStyle: { display: "none" }, // Ẩn tab này khi ở trang ViewCourseScreen
           headerShown: false, // Ẩn header khi ở trang ViewCourseScreen

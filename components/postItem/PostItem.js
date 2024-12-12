@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 3,
     maxWidth: 200,
-    width: "48%",
   },
   image: {
     width: "100%",
